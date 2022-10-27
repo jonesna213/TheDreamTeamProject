@@ -1,15 +1,12 @@
-# Welcome
-Welcome to the 2022 State Farm Java Coding Competition. If you have questions during the coding competition, please contact codingcompetition@statefarm.com or you can submit an issue through GitHub.
+# The Dream Team
 
-# Instructions
-Read the directions in '2022 Java Coding Competition Problem Statement.pdf'
+### Problem Statement
+For our team project we decided that we wanted to do the 2022 State Farm Coding Competition.
+The problem that we will be solving is we have 4 datasets that we will need to write methods that
+will produce some output. We were provided a skeleton Java project with 10 JUnit Tests that must pass upon completion.
+A bonus feature that is mentioned after getting the unit tests to pass are creating an interface
+and/or an API to interact with the methods and display results graphically. We will most likely do this
+as jsps and possibly through an API as well.
 
-# Submitting
-Open a pull request against the StateFarmInsCodingCompetition/2022-StateFarm-CodingCompetitionProblem repository. Only one teammate needs to open a pull request.
 
-# Dealing with new line characters
-https://help.github.com/articles/dealing-with-line-endings/
-
-# Questions?
-E-mail codingcompetition@statefarm.com, or to post a public question or report a problem, open an issue.
-
+### Team Goals
