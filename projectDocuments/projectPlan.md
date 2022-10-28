@@ -5,7 +5,7 @@
 - [x] Complete Team Charter
 - [x] Setup Repository
 - [x] Decide on Project
-- [ ]
+- [ ] Submit first weeks issue
 
 ### Week 10
 
