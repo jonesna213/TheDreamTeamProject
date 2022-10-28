@@ -15,4 +15,4 @@ as JSPs and possibly through an API as well.
 ### [Project Plan](projectDocuments/projectPlan.md)
 ### [Progress Journal](projectDocuments/progressJournal.md)
 ### [Team Charter](projectDocuments/teamCharter.md)
-### [State Farm's Problem Statement](2022 Java Coding Competition Problem Statement.pdf)
+### [State Farm's Problem Statement](2022_Java_Coding_Competition_Problem_Statement.pdf)
