@@ -10,3 +10,7 @@ as jsps and possibly through an API as well.
 
 
 ### Team Goals
+
+### [Project Plan](projectDocuments/projectPlan.md)
+### [Progress Journal](projectDocuments/progressJournal.md)
+### [Team Charter](projectDocuments/teamCharter.md)
