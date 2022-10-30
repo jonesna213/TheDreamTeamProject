@@ -1,7 +1,7 @@
 # Team Charter
 ### Team Purpose  
 To work together collaboratively and respectfully and to achieve the goals laid by the team as a whole.
-### Team Duties and Responsibilities
+### Team Rules and Responsibilities
 - Be punctual
 - Be open to the ideas of others
 - Divide work evenly
