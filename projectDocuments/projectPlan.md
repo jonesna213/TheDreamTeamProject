@@ -8,7 +8,7 @@
 - [x] Submit first weeks issue
 
 ### Week 10
-- [] Delegate work with teammates 
+- [ ] Delegate work with teammates 
 
 ### Week 11
 
