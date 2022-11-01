@@ -32,18 +32,18 @@ public class SimpleDataToolController {
      * 
      * @param <T>
      * @param filePath  Path to the file being read in
-     * @param classType Class of entries beng read in
+     * @param classType Class of entries being read in
      * @return List of entries from CSV file
      */
     public <T> List<T> readCsvFile(String filePath, Class<T> classType) {
         List<T> entries = new ArrayList<>();
         CsvMapper mapper = new CsvMapper();
-        CsvSchema headerSchema = CsvSchema.emptySchema().withHeader();
+        CsvSchema schema = CsvSchema.emptySchema().withHeader();
 
         try (Reader reader = new FileReader(filePath)) {
             MappingIterator<T> iterator = mapper
                     .readerFor(classType)
-                    .with(headerSchema)
+                    .with(schema)
                     .readValues(reader);
             while (iterator.hasNext()) {
                 entries.add(iterator.next());
@@ -148,7 +148,31 @@ public class SimpleDataToolController {
      * @return Customer that has the highest, total premium as Customer object
      */
     public Customer getCustomerWithHighestTotalPremium(String customersFilePath, List<Policy> policies) {
-        return null;
+        List<Customer> customers = readCsvFile(customersFilePath, Customer.class);
+        Map<Integer, Double> customerPolicies = new HashMap<>();
+
+        Customer customerWithHighestPremium = null;
+        double highestTotal = 0;
+
+        //Mapping all customer ids with their total premiums from the policies list
+        for (Policy policy:policies) {
+            if (customerPolicies.containsKey(policy.getCustomerId())) {
+                customerPolicies.replace(policy.getCustomerId(),
+                        customerPolicies.get(policy.getCustomerId()) + policy.getPremiumPerMonth());
+            } else {
+                customerPolicies.put(policy.getCustomerId(), policy.getPremiumPerMonth());
+            }
+        }
+
+        //finding the customer with the highest total premium
+        for (Customer customer:customers) {
+            if (customerPolicies.containsKey(customer.getId()) && customerPolicies.get(customer.getId()) > highestTotal) {
+                customerWithHighestPremium = customer;
+                highestTotal = customerPolicies.get(customer.getId());
+            }
+        }
+
+        return customerWithHighestPremium;
     }
 
     /**
