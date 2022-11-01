@@ -8,8 +8,8 @@
 - [x] Submit first weeks issue
 
 ### Week 10
-- [ ] Delegate work with teammates
-- [ ] Complete readCsvFile method
+- [x] Delegate work with teammates
+- [x] Complete readCsvFile method
 - [ ] Work on methods
 
 ### Week 11

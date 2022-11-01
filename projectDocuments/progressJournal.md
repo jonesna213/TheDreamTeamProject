@@ -13,4 +13,5 @@ Tasks Completed:
 11/1/2022
 
 Tasks Completed:
- * 
+ * Assigned methods to people
+ * Completed first method

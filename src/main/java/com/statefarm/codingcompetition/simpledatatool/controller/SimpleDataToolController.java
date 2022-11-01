@@ -57,7 +57,9 @@ public class SimpleDataToolController {
 
     /**
      * Gets the number of open claims
-     * 
+     *
+     * L
+     *
      * @param claims List of all claims
      * @return number of open claims
      */
@@ -67,7 +69,9 @@ public class SimpleDataToolController {
 
     /**
      * Get the number of customer for an agent id
-     * 
+     *
+     * L
+     *
      * @param filePath File path to the customers CSV
      * @param agentId  Agent id as int
      * @return number of customer for agent
@@ -78,7 +82,9 @@ public class SimpleDataToolController {
 
     /**
      * Get the number of customer for an agent id
-     * 
+     *
+     * L
+     *
      * @param filePath File path to the customers CSV
      * @param state    Agent id as int
      * @return number of customer for agent
@@ -89,7 +95,9 @@ public class SimpleDataToolController {
 
     /**
      * Sum total premium for a specific customer id
-     * 
+     *
+     * B
+     *
      * @param policies   List of all policies
      * @param customerId Customer id as int
      * @return float of monthly premium
@@ -101,7 +109,9 @@ public class SimpleDataToolController {
     /**
      * For a given customer (by first and last names), return the number of open
      * claims they have
-     * 
+     *
+     * B
+     *
      * @param filePathToCustomer File path to customers CSV
      * @param filePathToPolicy   File path to policies CSV
      * @param filePathToClaims   File path to claims CSV
@@ -117,7 +127,9 @@ public class SimpleDataToolController {
     /**
      * Returns the most spoken language (besides English) for customers in a given
      * state
-     * 
+     *
+     * B
+     *
      * @param customersFilePath File path to customers CSV
      * @param state             State abbreviation ex: AZ, TX, IL, etc.
      * @return String of language
@@ -128,7 +140,9 @@ public class SimpleDataToolController {
 
     /**
      * Returns Customer with the highest, total premium
-     * 
+     *
+     * N
+     *
      * @param customersFilePath File path to customers CSV
      * @param policies          List of all policies
      * @return Customer that has the highest, total premium as Customer object
@@ -139,7 +153,9 @@ public class SimpleDataToolController {
 
     /**
      * Returns the total number of open claims for a given state
-     * 
+     *
+     * N
+     *
      * @param customersFilePath File path to customers CSV
      * @param policiesFilePath  File path to policies CSV
      * @param claimsFilePath    File path to claims CSV
@@ -154,7 +170,9 @@ public class SimpleDataToolController {
     /**
      * Builds a dictionary/map of agents and their total premium from their
      * customers
-     * 
+     *
+     * N
+     *
      * @param customersFilePath File path to customers CSV
      * @param policiesFilePath  File path to policies CSV
      * @return Map of agent id as int to agent's total premium as double
