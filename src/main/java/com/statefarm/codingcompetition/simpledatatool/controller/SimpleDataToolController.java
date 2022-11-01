@@ -1,6 +1,8 @@
 package com.statefarm.codingcompetition.simpledatatool.controller;
 
+import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
 import java.io.Reader;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -24,6 +26,9 @@ public class SimpleDataToolController {
 
     /**
      * Read in a CSV file and return a list of entries in that file
+     *
+     * Inspired by https://cowtowncoder.medium.com/reading-csv-with-jackson-c4e74a15ddc1
+     * and https://www.java67.com/2019/05/how-to-read-csv-file-in-java-using-jackson-library.html
      * 
      * @param <T>
      * @param filePath  Path to the file being read in
@@ -31,7 +36,23 @@ public class SimpleDataToolController {
      * @return List of entries from CSV file
      */
     public <T> List<T> readCsvFile(String filePath, Class<T> classType) {
-        return null;
+        List<T> entries = new ArrayList<>();
+        CsvMapper mapper = new CsvMapper();
+        CsvSchema headerSchema = CsvSchema.emptySchema().withHeader();
+
+        try (Reader reader = new FileReader(filePath)) {
+            MappingIterator<T> iterator = mapper
+                    .readerFor(classType)
+                    .with(headerSchema)
+                    .readValues(reader);
+            while (iterator.hasNext()) {
+                entries.add(iterator.next());
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return entries;
     }
 
     /**
