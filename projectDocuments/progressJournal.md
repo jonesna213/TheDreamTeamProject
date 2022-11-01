@@ -9,3 +9,8 @@ Tasks Completed:
  * Completed team resume
  * Got repo setup
  * Completed team charter
+
+11/1/2022
+
+Tasks Completed:
+ * 
