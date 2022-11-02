@@ -1,5 +1,6 @@
 package com.statefarm.codingcompetition.simpledatatool.controller;
 
+import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.Reader;
 import java.util.ArrayList;
@@ -27,11 +28,31 @@ public class SimpleDataToolController {
      * 
      * @param <T>
      * @param filePath  Path to the file being read in
-     * @param classType Class of entries beng read in
+     * @param classType Class of entries being read in
      * @return List of entries from CSV file
      */
     public <T> List<T> readCsvFile(String filePath, Class<T> classType) {
-        return null;
+        // classType = (Class<T>) Customer.class;
+        Class<T> type = classType;
+        List<T> customerList = null;
+
+        try (BufferedReader input = new BufferedReader(new FileReader(filePath)))
+        {
+            while (input.ready()) {
+                String entry = input.readLine();
+                Customer currentCustomer = new Customer();
+                // break entry up into tokens, with comma as the delimiter
+                // assign each token to the appropriate Customer set method
+                // add Customer to customerList
+
+
+                customerList.add(currentCustomer);
+            }
+        }
+
+
+
+        return customerList;
     }
 
     /**
