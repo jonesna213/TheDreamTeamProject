@@ -188,7 +188,36 @@ public class SimpleDataToolController {
      */
     public int getOpenClaimsForState(String customersFilePath, String policiesFilePath, String claimsFilePath,
             String state) {
-        return 0;
+        int openClaims = 0;
+        List<Customer> customers = readCsvFile(customersFilePath, Customer.class);
+        List<Policy> policies = readCsvFile(policiesFilePath, Policy.class);
+        List<Claim> claims = readCsvFile(claimsFilePath, Claim.class);
+
+        List<Integer> customerIds = new ArrayList<>();
+        List<Integer> policyIds = new ArrayList<>();
+
+        //adding all customer ids with correct state to customerIds list
+        for (Customer customer:customers) {
+            if (customer.getState().equals(state)) {
+                customerIds.add(customer.getId());
+            }
+        }
+
+        //adding all policy ids with customers with the correct state into policy ids list
+        for (Policy policy:policies) {
+            if (customerIds.contains(policy.getCustomerId())) {
+                policyIds.add(policy.getId());
+            }
+        }
+
+        //looking at all claims to see if the policy id is in the policyIds list and if the claim is open
+        for (Claim claim:claims) {
+            if (policyIds.contains(claim.getPolicyId()) && claim.getIsClaimOpen()) {
+                openClaims++;
+            }
+        }
+
+        return openClaims;
     }
 
     /**
