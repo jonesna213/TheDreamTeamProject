@@ -232,6 +232,19 @@ public class SimpleDataToolController {
      */
     public Map<Integer, Double> buildMapOfAgentPremiums(
             String customersFilePath, String policiesFilePath) {
-        return null;
+        List<Customer> customers = readCsvFile(customersFilePath, Customer.class);
+        List<Policy> policies = readCsvFile(policiesFilePath, Policy.class);
+        Map<Integer, Double> agentTotalPremiums = new HashMap<>();
+
+        for (Customer customer:customers) {
+            if (agentTotalPremiums.containsKey(customer.getAgentId())) {
+                agentTotalPremiums.replace(customer.getAgentId(), agentTotalPremiums.get(customer.getAgentId()) +
+                        sumMonthlyPremiumForCustomerId(policies, customer.getId()));
+            } else {
+                agentTotalPremiums.put(customer.getAgentId(), sumMonthlyPremiumForCustomerId(policies, customer.getId()));
+            }
+        }
+
+        return agentTotalPremiums;
     }
 }
