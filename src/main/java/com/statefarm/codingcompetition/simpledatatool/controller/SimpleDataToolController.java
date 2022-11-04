@@ -86,7 +86,18 @@ public class SimpleDataToolController {
      * @return number of customer for agent
      */
     public int getNumberOfCustomersForAgentId(String filePath, int agentId) {
-        return 0;
+        int numberOfCustomersForAgentId = 0;
+        List<Customer> customers = readCsvFile(filePath, Customer.class);
+
+        for (int i = 0; i < customers.size(); i++) {
+            int assignedAgentToCustomer = customers.get(i).getAgentId();
+            if (assignedAgentToCustomer == agentId) {
+                numberOfCustomersForAgentId++;
+            }
+        }
+
+
+        return numberOfCustomersForAgentId;
     }
 
     /**
