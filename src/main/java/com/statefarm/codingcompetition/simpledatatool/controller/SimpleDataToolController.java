@@ -64,7 +64,16 @@ public class SimpleDataToolController {
      * @return number of open claims
      */
     public int getNumberOfOpenClaims(List<Claim> claims) {
-        return 0;
+        int numberOfOpenClaims = 0;
+
+        for (int i = 0; i < claims.size(); i++) {
+            boolean isClaimOpen = claims.get(i).getIsClaimOpen();
+                if (isClaimOpen) {
+                    numberOfOpenClaims++;
+                }
+        }
+
+        return numberOfOpenClaims;
     }
 
     /**
