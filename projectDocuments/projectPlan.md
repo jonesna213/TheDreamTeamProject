@@ -10,10 +10,10 @@
 ### Week 10
 - [x] Delegate work with teammates
 - [x] Complete readCsvFile method
-- [ ] Work on methods
+- [x] Work on methods
 
 ### Week 11
-- [ ] Continue to work on methods
+- [x] Continue to work on methods
 - [ ] Start stretch goals (?)
 
 ### Week 12
