@@ -64,7 +64,16 @@ public class SimpleDataToolController {
      * @return number of open claims
      */
     public int getNumberOfOpenClaims(List<Claim> claims) {
-        return 0;
+        int numberOfOpenClaims = 0;
+
+        for (int i = 0; i < claims.size(); i++) {
+            boolean isClaimOpen = claims.get(i).getIsClaimOpen();
+                if (isClaimOpen) {
+                    numberOfOpenClaims++;
+                }
+        }
+
+        return numberOfOpenClaims;
     }
 
     /**
@@ -77,20 +86,40 @@ public class SimpleDataToolController {
      * @return number of customer for agent
      */
     public int getNumberOfCustomersForAgentId(String filePath, int agentId) {
-        return 0;
+        int numberOfCustomersForAgentId = 0;
+        List<Customer> customers = readCsvFile(filePath, Customer.class);
+
+        for (Customer customer : customers) {
+            int assignedAgentToCustomer = customer.getAgentId();
+            if (assignedAgentToCustomer == agentId) {
+                numberOfCustomersForAgentId++;
+            }
+        }
+
+        return numberOfCustomersForAgentId;
     }
 
     /**
-     * Get the number of customer for an agent id
+     * Get the number of agents for a state
      *
      * L
      *
      * @param filePath File path to the customers CSV
      * @param state    Agent id as int
-     * @return number of customer for agent
+     * @return number of agents for state
      */
     public int getNumberOfAgentsForState(String filePath, String state) {
-        return 0;
+        int numberOfAgentsForState = 0;
+        List<Agent> agents = readCsvFile(filePath, Agent.class);
+
+        for (Agent agent : agents) {
+            String stateOfAgent = agent.getState();
+            if (state.equals(stateOfAgent)) {
+                numberOfAgentsForState++;
+            }
+        }
+
+        return numberOfAgentsForState;
     }
 
     /**
@@ -188,7 +217,36 @@ public class SimpleDataToolController {
      */
     public int getOpenClaimsForState(String customersFilePath, String policiesFilePath, String claimsFilePath,
             String state) {
-        return 0;
+        int openClaims = 0;
+        List<Customer> customers = readCsvFile(customersFilePath, Customer.class);
+        List<Policy> policies = readCsvFile(policiesFilePath, Policy.class);
+        List<Claim> claims = readCsvFile(claimsFilePath, Claim.class);
+
+        List<Integer> customerIds = new ArrayList<>();
+        List<Integer> policyIds = new ArrayList<>();
+
+        //adding all customer ids with correct state to customerIds list
+        for (Customer customer:customers) {
+            if (customer.getState().equals(state)) {
+                customerIds.add(customer.getId());
+            }
+        }
+
+        //adding all policy ids with customers with the correct state into policy ids list
+        for (Policy policy:policies) {
+            if (customerIds.contains(policy.getCustomerId())) {
+                policyIds.add(policy.getId());
+            }
+        }
+
+        //looking at all claims to see if the policy id is in the policyIds list and if the claim is open
+        for (Claim claim:claims) {
+            if (policyIds.contains(claim.getPolicyId()) && claim.getIsClaimOpen()) {
+                openClaims++;
+            }
+        }
+
+        return openClaims;
     }
 
     /**
@@ -203,6 +261,19 @@ public class SimpleDataToolController {
      */
     public Map<Integer, Double> buildMapOfAgentPremiums(
             String customersFilePath, String policiesFilePath) {
-        return null;
+        List<Customer> customers = readCsvFile(customersFilePath, Customer.class);
+        List<Policy> policies = readCsvFile(policiesFilePath, Policy.class);
+        Map<Integer, Double> agentTotalPremiums = new HashMap<>();
+
+        for (Customer customer:customers) {
+            if (agentTotalPremiums.containsKey(customer.getAgentId())) {
+                agentTotalPremiums.replace(customer.getAgentId(), agentTotalPremiums.get(customer.getAgentId()) +
+                        sumMonthlyPremiumForCustomerId(policies, customer.getId()));
+            } else {
+                agentTotalPremiums.put(customer.getAgentId(), sumMonthlyPremiumForCustomerId(policies, customer.getId()));
+            }
+        }
+
+        return agentTotalPremiums;
     }
 }
