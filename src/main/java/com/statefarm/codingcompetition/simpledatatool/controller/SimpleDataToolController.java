@@ -223,26 +223,14 @@ public class SimpleDataToolController {
      */
     public Customer getCustomerWithHighestTotalPremium(String customersFilePath, List<Policy> policies) {
         List<Customer> customers = readCsvFile(customersFilePath, Customer.class);
-        Map<Integer, Double> customerPolicies = new HashMap<>();
 
         Customer customerWithHighestPremium = null;
         double highestTotal = 0;
 
-        //Mapping all customer ids with their total premiums from the policies list
-        for (Policy policy:policies) {
-            if (customerPolicies.containsKey(policy.getCustomerId())) {
-                customerPolicies.replace(policy.getCustomerId(),
-                        customerPolicies.get(policy.getCustomerId()) + policy.getPremiumPerMonth());
-            } else {
-                customerPolicies.put(policy.getCustomerId(), policy.getPremiumPerMonth());
-            }
-        }
-
-        //finding the customer with the highest total premium
         for (Customer customer:customers) {
-            if (customerPolicies.containsKey(customer.getId()) && customerPolicies.get(customer.getId()) > highestTotal) {
+            if (sumMonthlyPremiumForCustomerId(policies, customer.getId()) > highestTotal) {
                 customerWithHighestPremium = customer;
-                highestTotal = customerPolicies.get(customer.getId());
+                highestTotal = sumMonthlyPremiumForCustomerId(policies, customer.getId());
             }
         }
 
