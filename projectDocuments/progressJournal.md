@@ -1,4 +1,4 @@
-git # Progress Journal
+# Progress Journal
 This document will serve as a journal to document our progress throughout working on the project.
 
 ---
@@ -9,3 +9,9 @@ Tasks Completed:
  * Completed team resume
  * Got repo setup
  * Completed team charter
+
+11/1/2022
+
+Tasks Completed:
+ * Assigned methods to people
+ * Completed first method

@@ -1,7 +1,7 @@
 package com.statefarm.codingcompetition.simpledatatool.controller;
 
-import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.IOException;
 import java.io.Reader;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -25,6 +25,9 @@ public class SimpleDataToolController {
 
     /**
      * Read in a CSV file and return a list of entries in that file
+     *
+     * Inspired by https://cowtowncoder.medium.com/reading-csv-with-jackson-c4e74a15ddc1
+     * and https://www.java67.com/2019/05/how-to-read-csv-file-in-java-using-jackson-library.html
      * 
      * @param <T>
      * @param filePath  Path to the file being read in
@@ -32,32 +35,31 @@ public class SimpleDataToolController {
      * @return List of entries from CSV file
      */
     public <T> List<T> readCsvFile(String filePath, Class<T> classType) {
-        // classType = (Class<T>) Customer.class;
-        Class<T> type = classType;
-        List<T> customerList = null;
 
-        try (BufferedReader input = new BufferedReader(new FileReader(filePath)))
-        {
-            while (input.ready()) {
-                String entry = input.readLine();
-                Customer currentCustomer = new Customer();
-                // break entry up into tokens, with comma as the delimiter
-                // assign each token to the appropriate Customer set method
-                // add Customer to customerList
+        List<T> entries = new ArrayList<>();
+        CsvMapper mapper = new CsvMapper();
+        CsvSchema schema = CsvSchema.emptySchema().withHeader();
 
-
-                customerList.add(currentCustomer);
+        try (Reader reader = new FileReader(filePath)) {
+            MappingIterator<T> iterator = mapper
+                    .readerFor(classType)
+                    .with(schema)
+                    .readValues(reader);
+            while (iterator.hasNext()) {
+                entries.add(iterator.next());
             }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
-
-
-        return customerList;
+        return entries;
     }
 
     /**
      * Gets the number of open claims
-     * 
+     *
+     * L
+     *
      * @param claims List of all claims
      * @return number of open claims
      */
@@ -67,7 +69,9 @@ public class SimpleDataToolController {
 
     /**
      * Get the number of customer for an agent id
-     * 
+     *
+     * L
+     *
      * @param filePath File path to the customers CSV
      * @param agentId  Agent id as int
      * @return number of customer for agent
@@ -78,7 +82,9 @@ public class SimpleDataToolController {
 
     /**
      * Get the number of customer for an agent id
-     * 
+     *
+     * L
+     *
      * @param filePath File path to the customers CSV
      * @param state    Agent id as int
      * @return number of customer for agent
@@ -89,7 +95,9 @@ public class SimpleDataToolController {
 
     /**
      * Sum total premium for a specific customer id
-     * 
+     *
+     * B
+     *
      * @param policies   List of all policies
      * @param customerId Customer id as int
      * @return float of monthly premium
@@ -101,7 +109,9 @@ public class SimpleDataToolController {
     /**
      * For a given customer (by first and last names), return the number of open
      * claims they have
-     * 
+     *
+     * B
+     *
      * @param filePathToCustomer File path to customers CSV
      * @param filePathToPolicy   File path to policies CSV
      * @param filePathToClaims   File path to claims CSV
@@ -117,7 +127,9 @@ public class SimpleDataToolController {
     /**
      * Returns the most spoken language (besides English) for customers in a given
      * state
-     * 
+     *
+     * B
+     *
      * @param customersFilePath File path to customers CSV
      * @param state             State abbreviation ex: AZ, TX, IL, etc.
      * @return String of language
@@ -128,18 +140,46 @@ public class SimpleDataToolController {
 
     /**
      * Returns Customer with the highest, total premium
-     * 
+     *
+     * N
+     *
      * @param customersFilePath File path to customers CSV
      * @param policies          List of all policies
      * @return Customer that has the highest, total premium as Customer object
      */
     public Customer getCustomerWithHighestTotalPremium(String customersFilePath, List<Policy> policies) {
-        return null;
+        List<Customer> customers = readCsvFile(customersFilePath, Customer.class);
+        Map<Integer, Double> customerPolicies = new HashMap<>();
+
+        Customer customerWithHighestPremium = null;
+        double highestTotal = 0;
+
+        //Mapping all customer ids with their total premiums from the policies list
+        for (Policy policy:policies) {
+            if (customerPolicies.containsKey(policy.getCustomerId())) {
+                customerPolicies.replace(policy.getCustomerId(),
+                        customerPolicies.get(policy.getCustomerId()) + policy.getPremiumPerMonth());
+            } else {
+                customerPolicies.put(policy.getCustomerId(), policy.getPremiumPerMonth());
+            }
+        }
+
+        //finding the customer with the highest total premium
+        for (Customer customer:customers) {
+            if (customerPolicies.containsKey(customer.getId()) && customerPolicies.get(customer.getId()) > highestTotal) {
+                customerWithHighestPremium = customer;
+                highestTotal = customerPolicies.get(customer.getId());
+            }
+        }
+
+        return customerWithHighestPremium;
     }
 
     /**
      * Returns the total number of open claims for a given state
-     * 
+     *
+     * N
+     *
      * @param customersFilePath File path to customers CSV
      * @param policiesFilePath  File path to policies CSV
      * @param claimsFilePath    File path to claims CSV
@@ -154,7 +194,9 @@ public class SimpleDataToolController {
     /**
      * Builds a dictionary/map of agents and their total premium from their
      * customers
-     * 
+     *
+     * N
+     *
      * @param customersFilePath File path to customers CSV
      * @param policiesFilePath  File path to policies CSV
      * @return Map of agent id as int to agent's total premium as double

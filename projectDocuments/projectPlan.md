@@ -5,10 +5,18 @@
 - [x] Complete Team Charter
 - [x] Setup Repository
 - [x] Decide on Project
-- [ ] Submit first weeks issue
+- [x] Submit first weeks issue
 
 ### Week 10
+- [x] Delegate work with teammates
+- [x] Complete readCsvFile method
+- [ ] Work on methods
 
 ### Week 11
+- [ ] Continue to work on methods
+- [ ] Start stretch goals (?)
 
 ### Week 12
+- [ ] Add finishing touches
+- [ ] Record Presentation 
+- [ ] Submit work
