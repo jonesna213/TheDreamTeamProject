@@ -16,6 +16,7 @@ import com.fasterxml.jackson.databind.MappingIterator;
 import com.fasterxml.jackson.databind.ObjectReader;
 import com.fasterxml.jackson.dataformat.csv.CsvMapper;
 import com.fasterxml.jackson.dataformat.csv.CsvSchema;
+
 import com.statefarm.codingcompetition.simpledatatool.model.Agent;
 import com.statefarm.codingcompetition.simpledatatool.model.Claim;
 import com.statefarm.codingcompetition.simpledatatool.model.Customer;
@@ -132,7 +133,18 @@ public class SimpleDataToolController {
      * @return float of monthly premium
      */
     public double sumMonthlyPremiumForCustomerId(List<Policy> policies, int customerId) {
-        return 0d;
+        double sumMonthlyPremium = 0.0;
+
+        for (Policy policy: policies) {
+            int currentCustomerId = policy.getCustomerId();
+
+            if (currentCustomerId == customerId) {
+                double currentMonthlyPremium = policy.getPremiumPerMonth();
+                sumMonthlyPremium += currentMonthlyPremium;
+            }
+        }
+
+        return sumMonthlyPremium;
     }
 
     /**
@@ -150,7 +162,40 @@ public class SimpleDataToolController {
      */
     public Integer getNumberOfOpenClaimsForCustomerName(String filePathToCustomer, String filePathToPolicy,
             String filePathToClaims, String firstName, String lastName) {
-        return null;
+        Integer openClaims = 0;
+
+        List<Customer> customers = readCsvFile(filePathToCustomer, Customer.class);
+        List<Policy> policies = readCsvFile(filePathToPolicy, Policy.class);
+        List<Claim> claims = readCsvFile(filePathToClaims, Claim.class);
+
+        for (Customer customer: customers) {
+            String currentCustomerFirstName = null;
+            String currentCustomerLastName = null;
+
+            currentCustomerFirstName = customer.getFirstName();
+            currentCustomerLastName = customer.getLastName();
+
+            if (firstName.equals(currentCustomerFirstName) &&
+                    lastName.equals(currentCustomerLastName)) {
+                // get the customer's id
+                int currentCustomerId = customer.getId();
+
+                for (Policy policy: policies) {
+                    if (currentCustomerId == policy.getCustomerId()) {
+                        int currentPolicyId = policy.getId();
+
+                        for (Claim claim: claims) {
+                            if (currentPolicyId == claim.getPolicyId() &&
+                                    claim.getIsClaimOpen()) { // if claim.getIsClaimOpen() == true
+                                openClaims++;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        return openClaims;
     }
 
     /**
