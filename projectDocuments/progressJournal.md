@@ -9,9 +9,19 @@ Tasks Completed:
  * Completed team resume
  * Got repo setup
  * Completed team charter
+---
 
 11/1/2022
 
 Tasks Completed:
  * Assigned methods to people
  * Completed first method
+---
+
+11/8/2022
+
+Tasks Completed:
+ * Got most methods done
+ * Talked threw what we have done
+ * Discussed what are doing for the next few days and planned on when we will record presentation
+---
