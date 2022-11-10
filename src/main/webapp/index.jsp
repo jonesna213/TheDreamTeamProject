@@ -1,4 +1,3 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html lang="en">
     <head>
         <meta charset="utf-8">
@@ -14,7 +13,7 @@
             Upon clicking on one you will be sent to a results page where you can see the results for said report.
         </p>
         <hr class="border border-5 border-dark">
-        <form class="my-3" action="runDataTool" method="get">
+        <form class="my-3" action="runDataTool" method="post">
             <input class="btn btn-success my-5" type="submit" name="reportType" value="Get Number Of Open Claims"/>
             <input class="btn btn-success my-5" type="submit" name="reportType" value="Get Map Of Agent Premiums"/>
             <input class="btn btn-success my-5" type="submit" name="reportType" value="Get Customer With Highest Total Premium"/>
