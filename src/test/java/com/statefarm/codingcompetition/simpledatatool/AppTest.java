@@ -97,11 +97,10 @@ public class AppTest {
 
     // #6 For a specific customer name, how many claims does the customer have?
     @Test
-
     public void getNumberOfOpenClaimsForCustomerName() {
-     /*    assertEquals(null, controller.getNumberOfOpenClaimsForCustomerName(customersFilePath, policiesFilePath,
+        assertEquals(null, controller.getNumberOfOpenClaimsForCustomerName(customersFilePath, policiesFilePath,
                 claimsFilePath, "Jake", "StateFarm"));
-    */
+
         assertEquals(Integer.valueOf(4),
                 controller.getNumberOfOpenClaimsForCustomerName(customersFilePath, policiesFilePath,
                         claimsFilePath, "Gabbie", "Copin"));

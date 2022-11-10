@@ -162,7 +162,7 @@ public class SimpleDataToolController {
      */
     public Integer getNumberOfOpenClaimsForCustomerName(String filePathToCustomer, String filePathToPolicy,
             String filePathToClaims, String firstName, String lastName) {
-        Integer openClaims = 0;
+        Integer openClaims = null;
 
         List<Customer> customers = readCsvFile(filePathToCustomer, Customer.class);
         List<Policy> policies = readCsvFile(filePathToPolicy, Policy.class);
@@ -177,17 +177,20 @@ public class SimpleDataToolController {
 
             if (firstName.equals(currentCustomerFirstName) &&
                     lastName.equals(currentCustomerLastName)) {
-                // get the customer's id
+                // get the given customer's id
                 int currentCustomerId = customer.getId();
+                openClaims = 0;
 
                 for (Policy policy: policies) {
+                    // match the customer with that customer's policies
                     if (currentCustomerId == policy.getCustomerId()) {
                         int currentPolicyId = policy.getId();
 
+                        // match all the open claims in the customer's policies
                         for (Claim claim: claims) {
                             if (currentPolicyId == claim.getPolicyId() &&
                                     claim.getIsClaimOpen()) { // if claim.getIsClaimOpen() == true
-                                openClaims++;
+                                openClaims += 1;
                             }
                         }
                     }
@@ -209,7 +212,54 @@ public class SimpleDataToolController {
      * @return String of language
      */
     public String getMostSpokenLanguageForState(String customersFilePath, String state) {
-        return null;
+        Map<String, Integer> languagesMap = new HashMap<>();
+        String mostSpokenLanguage = "";
+        int highestLanguageCount = 0;
+
+        List<Customer> customers = readCsvFile(customersFilePath, Customer.class);
+
+        // Load the languages map for the given state
+        for (Customer customer: customers) {
+            if (customer.getState().equals(state)) {
+                if (!(customer.getPrimaryLanguage().equals("English"))) {
+                    String customerPrimaryLanguage = customer.getPrimaryLanguage();
+
+                    if (languagesMap.containsKey(customerPrimaryLanguage)) {
+                        Integer thisLanguageCount = languagesMap.get(customerPrimaryLanguage);
+                        thisLanguageCount += 1;
+                        languagesMap.put(customerPrimaryLanguage, thisLanguageCount);
+                    }
+                    else {
+                        languagesMap.put(customerPrimaryLanguage, 1);
+                    }
+
+                    if (!(customer.getSecondaryLanguage().equals("English")) ||
+                            !(customer.getSecondaryLanguage().equals(""))) {
+                        String customerSecondaryLanguage = customer.getPrimaryLanguage();
+
+                        if (languagesMap.containsKey(customerSecondaryLanguage)) {
+                            Integer thisLanguageCount = languagesMap.get(customerPrimaryLanguage);
+                            thisLanguageCount += 1;
+                            languagesMap.put(customerPrimaryLanguage, thisLanguageCount);
+                        }
+                        else {
+                            languagesMap.put(customerPrimaryLanguage, 1);
+                        }
+
+                    }
+                }
+            }
+        }
+
+        // Loop through the languages map to find the most spoken language
+        for (Map.Entry<String, Integer> languageEntry: languagesMap.entrySet()) {
+            if (languageEntry.getValue() > highestLanguageCount) {
+                mostSpokenLanguage = languageEntry.getKey();
+                highestLanguageCount = languageEntry.getValue();
+            }
+        }
+
+        return mostSpokenLanguage;
     }
 
     /**
