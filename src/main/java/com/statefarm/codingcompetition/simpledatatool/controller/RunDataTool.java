@@ -3,6 +3,7 @@ package com.statefarm.codingcompetition.simpledatatool.controller;
 import com.statefarm.codingcompetition.simpledatatool.model.Claim;
 import com.statefarm.codingcompetition.simpledatatool.model.Policy;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -30,7 +31,7 @@ public class RunDataTool extends HttpServlet {
      * @throws IOException for io exceptions
      */
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
         ServletContext context = getServletContext();
         SimpleDataToolController controller = new SimpleDataToolController();
@@ -76,6 +77,7 @@ public class RunDataTool extends HttpServlet {
             session.setAttribute("results", controller.getOpenClaimsForState(customersFilePath, policiesFilePath, claimsFilePath, state));
         }
 
-        resp.sendRedirect("results.jsp");
+        RequestDispatcher dispatcher = req.getRequestDispatcher("/results.jsp");
+        dispatcher.forward(req, resp);
     }
 }
