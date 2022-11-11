@@ -14,7 +14,7 @@
 
 ### Week 11
 - [x] Continue to work on methods
-- [ ] Start stretch goals (?)
+- [x] Start stretch goals (?)
 
 ### Week 12
 - [ ] Add finishing touches

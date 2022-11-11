@@ -8,6 +8,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="SimpleDataTool" />
         <module name="TeamProject" />
+        <module name="TheDreamTeamProject" />
       </profile>
     </annotationProcessing>
   </component>

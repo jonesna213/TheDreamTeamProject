@@ -1,4 +1,5 @@
 # Default ignored files
+*.iml
 /shelf/
 .idea/
 # Editor-based HTTP Client requests
