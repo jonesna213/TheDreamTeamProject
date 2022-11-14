@@ -23,9 +23,9 @@ public class ApplicationStartup extends HttpServlet {
     public void init() throws ServletException {
         super.init();
         ServletContext context = getServletContext();
-        context.setAttribute("agentsFilePath", "src/main/resources/agents.csv");
-        context.setAttribute("claimsFilePath", "src/main/resources/claims.csv");
-        context.setAttribute("customersFilePath", "src/main/resources/customers.csv");
-        context.setAttribute("policiesFilePath", "src/main/resources/policies.csv");
+        context.setAttribute("agentsFilePath", "/agents.csv");
+        context.setAttribute("claimsFilePath", "/claims.csv");
+        context.setAttribute("customersFilePath", "/customers.csv");
+        context.setAttribute("policiesFilePath", "/policies.csv");
     }
 }

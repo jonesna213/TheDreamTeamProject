@@ -11,7 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.Map;
+import java.net.SocketOption;
+import java.util.*;
 
 @WebServlet(
         name = "runDataTool",
@@ -30,7 +31,7 @@ public class RunDataTool extends HttpServlet {
      * @throws IOException for io exceptions
      */
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
         ServletContext context = getServletContext();
         SimpleDataToolController controller = new SimpleDataToolController();
@@ -38,40 +39,42 @@ public class RunDataTool extends HttpServlet {
         String agentsFilePath = (String) context.getAttribute("agentsFilePath");
         String customersFilePath = (String) context.getAttribute("customersFilePath");
         String policiesFilePath = (String) context.getAttribute("policiesFilePath");
-        String choice = req.getParameter("choice");
+        String reportType = req.getParameter("reportType");
 
         //Couldn't think of a cleaner way...
-        if (choice.equals("Get Number Of Open Claims")) {
-            session.setAttribute("results", controller.getNumberOfOpenClaims(controller.readCsvFile(claimsFilePath, Claim.class)));
+        if (reportType.equals("Get Number Of Open Claims")) {  // Attribute Map ---> {"results", int}
+            List<Claim> allClaims = controller.readCsvFile(claimsFilePath, Claim.class);
+            int numOfOpenClaims = controller.getNumberOfOpenClaims(allClaims);
+            session.setAttribute("results", numOfOpenClaims);
 
-        } else if (choice.equals("Get Map Of Agent Premiums")) {
+        } else if (reportType.equals("Get Map Of Agent Premiums")) {
             session.setAttribute("results", controller.buildMapOfAgentPremiums(customersFilePath, policiesFilePath));
 
-        } else if (choice.equals("Get Customer With Highest Total Premium")) {
+        } else if (reportType.equals("Get Customer With Highest Total Premium")) {
             session.setAttribute("results", controller.getCustomerWithHighestTotalPremium(customersFilePath, controller.readCsvFile(policiesFilePath, Policy.class)));
 
-        } else if (choice.equals("Get Number Of Customers For Agent Id")) {
+        } else if (reportType.equals("Get Number Of Customers For Agent Id")) {
             int agentId = Integer.parseInt(req.getParameter("agentId"));
             session.setAttribute("results", controller.getNumberOfCustomersForAgentId(customersFilePath, agentId));
 
-        } else if (choice.equals("Get Number Of Agents For State")) {
+        } else if (reportType.equals("Get Number Of Agents For State")) {
             String state = req.getParameter("stateAgent");
-            session.setAttribute("results", controller.getNumberOfAgentsForState(customersFilePath, state));
+            session.setAttribute("results", controller.getNumberOfAgentsForState(agentsFilePath, state));
 
-        } else if (choice.equals("Sum Monthly Premium For Customer Id")) {
+        } else if (reportType.equals("Sum Monthly Premium For Customer Id")) {
             int customerId = Integer.parseInt(req.getParameter("customerId"));
             session.setAttribute("results", controller.sumMonthlyPremiumForCustomerId(controller.readCsvFile(policiesFilePath, Policy.class), customerId));
 
-        } else if (choice.equals("Get Number Of Open Claims For Customer Name")) {
+        } else if (reportType.equals("Get Number Of Open Claims For Customer Name")) {
             String firstName = req.getParameter("firstName");
             String lastName = req.getParameter("lastName");
             session.setAttribute("results", controller.getNumberOfOpenClaimsForCustomerName(customersFilePath, policiesFilePath, claimsFilePath, firstName, lastName));
 
-        } else if (choice.equals("Get Most Spoken Language For State")) {
+        } else if (reportType.equals("Get Most Spoken Language For State")) {
             String state = req.getParameter("stateLanguage");
             session.setAttribute("results", controller.getMostSpokenLanguageForState(customersFilePath, state));
 
-        } else if (choice.equals("Get Number Of Open Claims For State")) {
+        } else if (reportType.equals("Get Number Of Open Claims For State")) {
             String state = req.getParameter("stateClaims");
             session.setAttribute("results", controller.getOpenClaimsForState(customersFilePath, policiesFilePath, claimsFilePath, state));
         }
