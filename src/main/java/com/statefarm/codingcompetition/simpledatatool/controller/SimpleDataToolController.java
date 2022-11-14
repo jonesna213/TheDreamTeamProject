@@ -1,8 +1,6 @@
 package com.statefarm.codingcompetition.simpledatatool.controller;
 
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.Reader;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -29,7 +27,7 @@ public class SimpleDataToolController {
      *
      * Inspired by https://cowtowncoder.medium.com/reading-csv-with-jackson-c4e74a15ddc1
      * and https://www.java67.com/2019/05/how-to-read-csv-file-in-java-using-jackson-library.html
-     * 
+     *
      * @param <T>
      * @param filePath  Path to the file being read in
      * @param classType Class of entries being read in
@@ -41,7 +39,13 @@ public class SimpleDataToolController {
         CsvMapper mapper = new CsvMapper();
         CsvSchema schema = CsvSchema.emptySchema().withHeader();
 
-        try (Reader reader = new FileReader(filePath)) {
+        InputStream is = this.getClass().getResourceAsStream(filePath);
+
+        // try (Reader reader = new FileReader(filePath))
+        try (InputStreamReader streamReader =
+                     new InputStreamReader(is);
+             BufferedReader reader = new BufferedReader(streamReader))
+        {
             MappingIterator<T> iterator = mapper
                     .readerFor(classType)
                     .with(schema)
@@ -53,7 +57,7 @@ public class SimpleDataToolController {
             e.printStackTrace();
         }
 
-        return entries;
+        return entries;  // a List of all from each csv file (Customers, Agents, Policies, Claims)
     }
 
     /**
@@ -69,12 +73,12 @@ public class SimpleDataToolController {
 
         for (int i = 0; i < claims.size(); i++) {
             boolean isClaimOpen = claims.get(i).getIsClaimOpen();
-                if (isClaimOpen) {
-                    numberOfOpenClaims++;
-                }
+            if (isClaimOpen) {
+                numberOfOpenClaims++;
+            }
         }
 
-        return numberOfOpenClaims;
+        return numberOfOpenClaims;  // an int
     }
 
     /**
@@ -97,7 +101,7 @@ public class SimpleDataToolController {
             }
         }
 
-        return numberOfCustomersForAgentId;
+        return numberOfCustomersForAgentId;  // an int
     }
 
     /**
@@ -120,7 +124,7 @@ public class SimpleDataToolController {
             }
         }
 
-        return numberOfAgentsForState;
+        return numberOfAgentsForState;  // an int
     }
 
     /**
@@ -144,7 +148,7 @@ public class SimpleDataToolController {
             }
         }
 
-        return sumMonthlyPremium;
+        return sumMonthlyPremium;  // a double
     }
 
     /**
@@ -161,7 +165,7 @@ public class SimpleDataToolController {
      * @return Number of open claims for customer or null if customer doesn't exist
      */
     public Integer getNumberOfOpenClaimsForCustomerName(String filePathToCustomer, String filePathToPolicy,
-            String filePathToClaims, String firstName, String lastName) {
+                                                        String filePathToClaims, String firstName, String lastName) {
         Integer openClaims = null;
 
         List<Customer> customers = readCsvFile(filePathToCustomer, Customer.class);
@@ -198,7 +202,7 @@ public class SimpleDataToolController {
             }
         }
 
-        return openClaims;
+        return openClaims;  // an Integer object
     }
 
     /**
@@ -259,7 +263,7 @@ public class SimpleDataToolController {
             }
         }
 
-        return mostSpokenLanguage;
+        return mostSpokenLanguage; // a String
     }
 
     /**
@@ -284,7 +288,7 @@ public class SimpleDataToolController {
             }
         }
 
-        return customerWithHighestPremium;
+        return customerWithHighestPremium;  // a Customer
     }
 
     /**
@@ -299,7 +303,7 @@ public class SimpleDataToolController {
      * @return number of open claims as int
      */
     public int getOpenClaimsForState(String customersFilePath, String policiesFilePath, String claimsFilePath,
-            String state) {
+                                     String state) {
         int openClaims = 0;
         List<Customer> customers = readCsvFile(customersFilePath, Customer.class);
         List<Policy> policies = readCsvFile(policiesFilePath, Policy.class);
@@ -329,7 +333,7 @@ public class SimpleDataToolController {
             }
         }
 
-        return openClaims;
+        return openClaims;  // an int
     }
 
     /**
@@ -357,6 +361,6 @@ public class SimpleDataToolController {
             }
         }
 
-        return agentTotalPremiums;
+        return agentTotalPremiums;  // a Map<Integer, Double>
     }
 }

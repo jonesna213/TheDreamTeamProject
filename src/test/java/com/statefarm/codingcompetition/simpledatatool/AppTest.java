@@ -18,10 +18,10 @@ import com.statefarm.codingcompetition.simpledatatool.model.Policy;
  */
 public class AppTest {
 
-    private final String agentsFilePath = "src/main/resources/agents.csv";
-    private final String claimsFilePath = "src/main/resources/claims.csv";
-    private final String customersFilePath = "src/main/resources/customers.csv";
-    private final String policiesFilePath = "src/main/resources/policies.csv";
+    private final String agentsFilePath = "/agents.csv";
+    private final String claimsFilePath = "/claims.csv";
+    private final String customersFilePath = "/customers.csv";
+    private final String policiesFilePath = "/policies.csv";
 
     private static SimpleDataToolController controller;
 

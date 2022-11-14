@@ -1,4 +1,6 @@
+<%@ page import="com.statefarm.codingcompetition.simpledatatool.model.Customer" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <html lang="en">
     <head>
         <meta charset="utf-8">
@@ -9,51 +11,65 @@
     </head>
     <body class="container">
         <h1 class="text-center">Results</h1>
-        <c:if test="${results instanceof Map<?,?>}" >
-            <table class="table table-bordered mx-auto">
-                <thead>
-                    <tr>
-                        <th>Agent Id</th>
-                        <th>Total Premium</th>
-                    </tr>
-                </thead>
-                <tbody>
-                <c:forEach var="Map.Entry<Integer,Double> result" items="${results.entrySet()}">
-                    <tr>
-                        <td>${result.getKey()}</td>
-                        <td>$${result.getValue()}</td>
-                    </tr>
-                </c:forEach>
-                </tbody>
-            </table>
-        </c:if>
-        <c:if test="${results instanceof Customer}" >
-            <div class="text-center">
-                <ul>
-                    <li>Id - ${results.id}</li>
-                    <li>First Name - ${results.firstName}</li>
-                    <li>Last Name - ${results.lastName}</li>
-                    <li>Age - ${results.age}</li>
-                    <li>State - ${results.state}</li>
-                    <li>Region - ${results.region}</li>
-                    <li>Primary Language - ${results.primaryLanguage}</li>
-                    <li>Secondary Language - ${results.secondaryLanguage}</li>
-                    <li>Agent Id - ${results.agentId}</li>
-                </ul>
-            </div>
-        </c:if>
-        <c:if test="${!results instanceof Map<?,?> && !results instanceof Customer}" >
-            <div class="text-center">
-                <p>${results}</p>
-            </div>
-        </c:if>
-        <c:if test="${results == null}" >
-            <div class="text-center">
-                <p>There was an error, please try again</p>
-            </div>
-        </c:if>
+        <a class="btn btn-primary float-end" href="index.jsp">Back to Home</a>
+        <!-- If a Map -->
+        <%
+            Object results = session.getAttribute("results");
+            if (results.getClass() == java.util.HashMap.class) {
+        %>
+        <table class="table table-bordered mx-auto">
+            <thead>
+            <tr>
+                <th>Agent Id</th>
+                <th>Total Premium</th>
+            </tr>
+            </thead>
+            <tbody>
+            <c:forEach var="result" items="${results.entrySet()}">
+                <tr>
+                    <td>${result.getKey()}</td>
+                    <td>$${Math.round(result.getValue()*100)/100}</td>
+                </tr>
+            </c:forEach>
+            </tbody>
+        </table>
 
-        <a href="index.jsp">Back to Home</a>
+        <%
+        } else if (results.getClass() == Customer.class) {
+        %>
+        <!-- If a Customer -->
+        <div class="mx-auto">
+            <ul>
+                <li>Id - ${results.id}</li>
+                <li>First Name - ${results.firstName}</li>
+                <li>Last Name - ${results.lastName}</li>
+                <li>Age - ${results.age}</li>
+                <li>State - ${results.state}</li>
+                <li>Region - ${results.region}</li>
+                <li>Primary Language - ${results.primaryLanguage}</li>
+                <li>Secondary Language - ${results.secondaryLanguage}</li>
+                <li>Agent Id - ${results.agentId}</li>
+            </ul>
+        </div>
+        <%
+        } else if (!(results.getClass() == java.util.HashMap.class) && !(results.getClass() == Customer.class)) {
+        %>
+        <!--If not a Map or a Customer -->
+        <div class="text-center">
+            <p>${resultDescription}</p>
+            <p>${results}</p>
+        </div>
+        <%
+        } else if (results == null) {
+        %>
+        <!-- If null -->
+        <div class="text-center">
+            <p>There was an error, please try again.</p>
+        </div>
+        <%
+            }
+        %>
+
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
                 integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"
