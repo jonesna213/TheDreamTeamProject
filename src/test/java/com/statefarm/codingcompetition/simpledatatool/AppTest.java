@@ -19,7 +19,6 @@ import com.statefarm.codingcompetition.simpledatatool.model.Policy;
 public class AppTest {
 
     private final String agentsFilePath = "/agents.csv";
-    // private final String claimsFilePath = "src/main/resources/claims.csv";
     private final String claimsFilePath = "/claims.csv";
     private final String customersFilePath = "/customers.csv";
     private final String policiesFilePath = "/policies.csv";

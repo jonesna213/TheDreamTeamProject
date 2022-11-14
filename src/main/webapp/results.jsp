@@ -9,8 +9,9 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
               integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     </head>
-        <body class="container">
+    <body class="container">
         <h1 class="text-center">Results</h1>
+        <a class="btn btn-primary float-end" href="index.jsp">Back to Home</a>
         <!-- If a Map -->
         <%
             Object results = session.getAttribute("results");
@@ -27,7 +28,7 @@
             <c:forEach var="result" items="${results.entrySet()}">
                 <tr>
                     <td>${result.getKey()}</td>
-                    <td>$${result.getValue()}</td>
+                    <td>$${Math.round(result.getValue()*100)/100}</td>
                 </tr>
             </c:forEach>
             </tbody>
@@ -37,7 +38,7 @@
         } else if (results.getClass() == Customer.class) {
         %>
         <!-- If a Customer -->
-        <div class="text-center">
+        <div class="mx-auto">
             <ul>
                 <li>Id - ${results.id}</li>
                 <li>First Name - ${results.firstName}</li>
@@ -55,6 +56,7 @@
         %>
         <!--If not a Map or a Customer -->
         <div class="text-center">
+            <p>${resultDescription}</p>
             <p>${results}</p>
         </div>
         <%
@@ -68,10 +70,9 @@
             }
         %>
 
-        <a href="index.jsp">Back to Home</a>
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
                 integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"
                 integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
-        </body>
+    </body>
 </html>
