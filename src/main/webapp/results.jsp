@@ -23,6 +23,7 @@
             }
            else if (results.getClass() == java.util.HashMap.class) {
         %>
+        <%-- If a HashMap --%>
         <table class="table table-bordered mx-auto">
             <thead>
             <tr>
@@ -43,7 +44,7 @@
         <%
         } else if (results.getClass() == Customer.class) {
         %>
-        <!-- If a Customer -->
+        <%-- If a Customer --%>
         <div class="mx-auto">
             <ul>
                 <li>Id - ${results.id}</li>
@@ -60,7 +61,7 @@
         <%
         } else if (!(results.getClass() == java.util.HashMap.class) && !(results.getClass() == Customer.class)) {
         %>
-        <!--If not a Map or a Customer -->
+        <%--If not a Map or a Customer --%>
         <div class="text-center">
             <p>${resultDescription}</p>
             <p>${results}</p>

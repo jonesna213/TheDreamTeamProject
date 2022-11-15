@@ -32,6 +32,7 @@ public class SimpleDataToolController {
      * @param filePath  Path to the file being read in
      * @param classType Class of entries being read in
      * @return List of entries from CSV file
+     * @author Navy Jones, Leischow Vang, Bill Georgeson
      */
     public <T> List<T> readCsvFile(String filePath, Class<T> classType) {
 
@@ -63,10 +64,10 @@ public class SimpleDataToolController {
     /**
      * Gets the number of open claims
      *
-     * L
      *
      * @param claims List of all claims
      * @return number of open claims
+     * @author Leischow Vang
      */
     public int getNumberOfOpenClaims(List<Claim> claims) {
         int numberOfOpenClaims = 0;
@@ -84,11 +85,10 @@ public class SimpleDataToolController {
     /**
      * Get the number of customer for an agent id
      *
-     * L
-     *
      * @param filePath File path to the customers CSV
      * @param agentId  Agent id as int
      * @return number of customer for agent
+     * @author Leischow Vang
      */
     public int getNumberOfCustomersForAgentId(String filePath, int agentId) {
         int numberOfCustomersForAgentId = 0;
@@ -107,11 +107,11 @@ public class SimpleDataToolController {
     /**
      * Get the number of agents for a state
      *
-     * L
      *
      * @param filePath File path to the customers CSV
      * @param state    Agent id as int
      * @return number of agents for state
+     * @author Leischow Vang
      */
     public int getNumberOfAgentsForState(String filePath, String state) {
         int numberOfAgentsForState = 0;
@@ -130,11 +130,10 @@ public class SimpleDataToolController {
     /**
      * Sum total premium for a specific customer id
      *
-     * B
-     *
      * @param policies   List of all policies
      * @param customerId Customer id as int
      * @return float of monthly premium
+     * @author Bill Georgeson
      */
     public double sumMonthlyPremiumForCustomerId(List<Policy> policies, int customerId) {
         double sumMonthlyPremium = 0.0;
@@ -155,14 +154,13 @@ public class SimpleDataToolController {
      * For a given customer (by first and last names), return the number of open
      * claims they have
      *
-     * B
-     *
      * @param filePathToCustomer File path to customers CSV
      * @param filePathToPolicy   File path to policies CSV
      * @param filePathToClaims   File path to claims CSV
      * @param firstName          First name of customer to search for
      * @param lastName           Last name of customer to search for
      * @return Number of open claims for customer or null if customer doesn't exist
+     * @author Bill Georgeson
      */
     public Integer getNumberOfOpenClaimsForCustomerName(String filePathToCustomer, String filePathToPolicy,
                                                         String filePathToClaims, String firstName, String lastName) {
@@ -209,11 +207,11 @@ public class SimpleDataToolController {
      * Returns the most spoken language (besides English) for customers in a given
      * state
      *
-     * B
      *
      * @param customersFilePath File path to customers CSV
      * @param state             State abbreviation ex: AZ, TX, IL, etc.
      * @return String of language
+     * @author Bill Georgeson
      */
     public String getMostSpokenLanguageForState(String customersFilePath, String state) {
         Map<String, Integer> languagesMap = new HashMap<>();
@@ -269,11 +267,10 @@ public class SimpleDataToolController {
     /**
      * Returns Customer with the highest, total premium
      *
-     * N
-     *
      * @param customersFilePath File path to customers CSV
      * @param policies          List of all policies
      * @return Customer that has the highest, total premium as Customer object
+     * @author Navy Jones
      */
     public Customer getCustomerWithHighestTotalPremium(String customersFilePath, List<Policy> policies) {
         List<Customer> customers = readCsvFile(customersFilePath, Customer.class);
@@ -294,13 +291,12 @@ public class SimpleDataToolController {
     /**
      * Returns the total number of open claims for a given state
      *
-     * N
-     *
      * @param customersFilePath File path to customers CSV
      * @param policiesFilePath  File path to policies CSV
      * @param claimsFilePath    File path to claims CSV
      * @param state             State abbreviation ex: AZ, TX, IL, etc.
      * @return number of open claims as int
+     * @author Navy Jones
      */
     public int getOpenClaimsForState(String customersFilePath, String policiesFilePath, String claimsFilePath,
                                      String state) {
@@ -340,11 +336,10 @@ public class SimpleDataToolController {
      * Builds a dictionary/map of agents and their total premium from their
      * customers
      *
-     * N
-     *
      * @param customersFilePath File path to customers CSV
      * @param policiesFilePath  File path to policies CSV
      * @return Map of agent id as int to agent's total premium as double
+     * @author Navy Jones
      */
     public Map<Integer, Double> buildMapOfAgentPremiums(
             String customersFilePath, String policiesFilePath) {

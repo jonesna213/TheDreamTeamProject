@@ -42,7 +42,7 @@ public class RunDataTool extends HttpServlet {
         String policiesFilePath = (String) context.getAttribute("policiesFilePath");
         String reportType = req.getParameter("reportType");
 
-        //Couldn't think of a cleaner way...
+        // Couldn't think of a cleaner way...
         if (reportType.equals("Get Number Of Open Claims")) {  // Attribute Map ---> {"results", int}
             session.setAttribute("results", controller.getNumberOfOpenClaims(controller.readCsvFile(claimsFilePath, Claim.class)));
             session.setAttribute("resultDescription","Number of open claims:");
