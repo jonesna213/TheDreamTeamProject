@@ -42,7 +42,6 @@ public class SimpleDataToolController {
 
         InputStream is = this.getClass().getResourceAsStream(filePath);
 
-        // try (Reader reader = new FileReader(filePath))
         try (InputStreamReader streamReader =
                      new InputStreamReader(is);
              BufferedReader reader = new BufferedReader(streamReader))
