@@ -13,14 +13,16 @@
             Below there is a button for each of the methods that were written for the State Farm coding competition.
             Upon clicking on one you will be sent to a results page where you can see the results for said report.
         </p>
-        <hr class="border border-5 border-dark">
+        <hr class="border border-3 border-dark">
+
         <form class="my-3" action="runDataTool" method="GET">
-            <div class="px-4 py-5 my-5 text-center">
+            <div class="px-2 py-2 text-center">
             <input class="btn btn-success my-5" type="submit" name="reportType" value="Get Number Of Open Claims"/>
             <input class="btn btn-success my-5" type="submit" name="reportType" value="Get Map Of Agent Premiums"/>
             <input class="btn btn-success my-5" type="submit" name="reportType" value="Get Customer With Highest Total Premium"/>
             </div>
             <hr>
+
             <h2>Get Number Of Customers For Agent Id</h2>
             <div class="form-group my-5">
                 <label for="agentId" class="fw-bold">Agent Id</label>
@@ -29,15 +31,16 @@
                 <input class="btn btn-success mt-3" type="submit" name="reportType" value="Get Number Of Customers For Agent Id"/>
             </div>
             <hr>
-
+            <h2>Get Number Of Agents For State</h2>
             <div class="form-group my-5">
                 <label for="stateAgent" class="fw-bold">State (Enter abbreviation ex. WI, IL ect.)</label>
                 <input type="text" class="form-control"
                        name="stateAgent" id="stateAgent"/>
                 <input class="btn btn-success mt-3" type="submit" name="reportType" value="Get Number Of Agents For State"/>
             </div>
-
             <hr>
+
+            <h2>Get The Sum Monthly Premium For Customer Id</h2>
             <div class="form-group my-5">
                 <label for="customerId" class="fw-bold">Customer Id</label>
                 <input type="text" class="form-control"
@@ -46,6 +49,7 @@
             </div>
             <hr>
 
+            <h2>Get Number Of Open Claims For Customer Name</h2>
             <div class="form-group my-5">
                 <label for="firstName" class="fw-bold">First Name</label>
                 <input type="text" class="form-control"
@@ -56,6 +60,8 @@
                 <input class="btn btn-success mt-3" type="submit" name="reportType" value="Get Number Of Open Claims For Customer Name"/>
             </div>
             <hr>
+
+            <h2>Get The Most Spoken Language For A State</h2>
             <div class="form-group my-5">
                 <label for="stateLanguage" class="fw-bold">State (Enter abbreviation ex. WI, IL ect.)</label>
                 <input type="text" class="form-control"
@@ -63,6 +69,8 @@
                 <input class="btn btn-success mt-3" type="submit" name="reportType" value="Get Most Spoken Language For State"/>
             </div>
             <hr>
+
+            <h2>Get The Number Of Open Claims For A State</h2>
             <div class="form-group my-5">
                 <label for="stateClaims" class="fw-bold">State (Enter abbreviation ex. WI, IL ect.)</label>
                 <input type="text" class="form-control"
