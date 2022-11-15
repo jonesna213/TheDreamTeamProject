@@ -12,10 +12,16 @@
     <body class="container">
         <h1 class="text-center">Results</h1>
         <a class="btn btn-primary float-end" href="index.jsp">Back to Home</a>
-        <!-- If a Map -->
         <%
             Object results = session.getAttribute("results");
-            if (results.getClass() == java.util.HashMap.class) {
+            if (results == null) {
+        %>
+        <div class="text-center">
+            <p>There was an error, please try again.</p>
+        </div>
+        <%
+            }
+           else if (results.getClass() == java.util.HashMap.class) {
         %>
         <table class="table table-bordered mx-auto">
             <thead>
@@ -60,14 +66,7 @@
             <p>${results}</p>
         </div>
         <%
-        } else if (results == null) {
-        %>
-        <!-- If null -->
-        <div class="text-center">
-            <p>There was an error, please try again.</p>
-        </div>
-        <%
-            }
+        }
         %>
 
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
