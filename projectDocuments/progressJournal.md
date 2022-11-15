@@ -25,3 +25,10 @@ Tasks Completed:
  * Talked threw what we have done
  * Discussed what are doing for the next few days and planned on when we will record presentation
 ---
+
+11/14/2022
+
+Tasks Completed:
+ * Finished up project
+ * Planned out presentation
+---

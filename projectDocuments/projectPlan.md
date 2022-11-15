@@ -17,6 +17,6 @@
 - [x] Start stretch goals (?)
 
 ### Week 12
-- [ ] Add finishing touches
+- [x] Add finishing touches
 - [ ] Record Presentation 
 - [ ] Submit work
