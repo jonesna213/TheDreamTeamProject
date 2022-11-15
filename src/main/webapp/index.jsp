@@ -15,10 +15,13 @@
         </p>
         <hr class="border border-5 border-dark">
         <form class="my-3" action="runDataTool" method="GET">
+            <div class="px-4 py-5 my-5 text-center">
             <input class="btn btn-success my-5" type="submit" name="reportType" value="Get Number Of Open Claims"/>
             <input class="btn btn-success my-5" type="submit" name="reportType" value="Get Map Of Agent Premiums"/>
             <input class="btn btn-success my-5" type="submit" name="reportType" value="Get Customer With Highest Total Premium"/>
+            </div>
             <hr>
+            <h2>Get Number Of Customers For Agent Id</h2>
             <div class="form-group my-5">
                 <label for="agentId" class="fw-bold">Agent Id</label>
                 <input type="text" class="form-control"
