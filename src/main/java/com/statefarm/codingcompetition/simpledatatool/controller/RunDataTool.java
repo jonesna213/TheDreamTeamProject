@@ -71,7 +71,12 @@ public class RunDataTool extends HttpServlet {
         } else if (reportType.equals("Get Number Of Open Claims For Customer Name")) {
             String firstName = req.getParameter("firstName");
             String lastName = req.getParameter("lastName");
-            session.setAttribute("results", controller.getNumberOfOpenClaimsForCustomerName(customersFilePath, policiesFilePath, claimsFilePath, firstName, lastName));
+            Integer results = controller.getNumberOfOpenClaimsForCustomerName(customersFilePath, policiesFilePath, claimsFilePath, firstName, lastName);
+            if (results == null) {
+                session.setAttribute("results", "There is no customer by this name.");
+            } else {
+                session.setAttribute("results", results);
+            }
             session.setAttribute("resultDescription","Number of open claims for \"" + firstName + " " + lastName + "\":");
 
         } else if (reportType.equals("Get Most Spoken Language For State")) {
